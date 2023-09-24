@@ -60,7 +60,7 @@ class UserService {
     
    isAdmin(userId){
         try {
-            return this.UserRepository.isAdmin(userId);
+            return this.userRepository.isAdmin(userId);
         } catch (error) {
             console.log("something went wrong in service layer for auth process");
             throw error; 

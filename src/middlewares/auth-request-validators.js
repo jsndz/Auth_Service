@@ -19,6 +19,7 @@ const validateIsAdminRequest = (req,res,next)=>{
             message:"something went wrong"
         })
     }
+    next();
 }
 
 module.exports = {
