@@ -24,7 +24,7 @@ class UserService {
             const passwordMatch = this.checkPassword(plainPassword,user.password);
 
             if(!passwordMatch){
-                console.log("password match");
+                console.log("password doesnt match");
                 throw {error:'password doesnt match'}
             }
 
@@ -35,6 +35,30 @@ class UserService {
             throw error; 
         }
     }
+
+    async isAuthenticated(token){
+        try {
+            const response = await this.verifyToken(token);
+            
+
+            if(!response){
+                
+                throw {error:'invalid token'}
+            }
+            const user = await this.userRepository.getById(response.id);
+
+            if(!user){
+                
+                throw {error:'invalid user'}
+            }
+            return user.id;
+        } catch (error) {
+            console.log("something went wrong in service layer for auth process");
+            throw error; 
+        }
+    }
+    
+   
 
     createtoken(user){
         try {

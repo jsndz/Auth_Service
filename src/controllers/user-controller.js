@@ -27,6 +27,27 @@ const create = async (req,res) => {
     }
 }
 
+const isAuthenticated = async (req,res) => {
+    try {
+        const token = await req.headers['x-access-token'];
+        const response = await userService.isAuthenticated(token);
+        return res.status(201).json({
+            data: response,
+            error:{},
+            sucess:true,
+            message:" authentication is successful"
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            data: {},
+            error:{error},
+            sucess:false,
+            message:"authentication is unsuccessful"
+        })
+    }
+}
+
 const signin = async (req,res) => {
     try {
         const response = await userService.signin(req.body.email,req.body.password);
@@ -40,7 +61,7 @@ const signin = async (req,res) => {
         console.log(error);
         return res.status(500).json({
             data: {},
-            error:{error},
+            error:error,
             sucess:false,
             message:"sign in unsuccessful"
         })
@@ -49,5 +70,6 @@ const signin = async (req,res) => {
 
 module.exports = {
     create,
-    signin
+    signin,
+    isAuthenticated
 }
