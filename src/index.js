@@ -2,8 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser')
 const {PORT} = require('./config/serverConfig');
 const ApiRoutes = require('./routes/index');
-const UserRepository = require('./repository/user-repository');
-const UserService = require('./service/user-service');
+// const UserRepository = require('./repository/user-repository');
+// const UserService = require('./service/user-service');
 const app = express();
 
 const prepareAndstartServer = () => {
@@ -15,7 +15,7 @@ const prepareAndstartServer = () => {
         // const repo = new UserRepository();
         // const response = await repo.getById(1)
         // console.log(response);
-        const serv = new UserService();
+        // const serv = new UserService();
 
         // const nt = serv.createtoken({email:'jaison@admin.com',id:1})
         // console.log(nt);

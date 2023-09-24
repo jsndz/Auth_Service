@@ -2,7 +2,7 @@ const { JWT_key } = require('../config/serverConfig');
 const UserRepository = require('../repository/user-repository');
 
 const jwt = require('jsonwebtoken');
-
+const bcrypt = require('bcrypt');
 class UserService {
     constructor(){
         this.userRepository = new UserRepository();
@@ -33,10 +33,21 @@ class UserService {
             const result = jwt.verify(token,JWT_key);
             return result;
         } catch (error) {
-            onsole.log("something went wrong in service layer in token verification");
+            console.log("something went wrong in service layer in token verification");
             throw error; 
         }
     }
+
+    checkPassword(userinputPlainpassword,encryptedpassword){
+        try {
+            return bcrypt.compareSync(userinputPlainpassword,encryptedpassword);
+        } catch (error) {
+            console.log("something went wrong in service layer in checking password");
+            throw error; 
+        }
+    }
+
+
 
 
 }
