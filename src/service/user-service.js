@@ -18,6 +18,24 @@ class UserService {
         }
     }
 
+    async signin(email,plainPassword){
+        try {
+            const user = await this.userRepository.getByEmail(email);
+            const passwordMatch = this.checkPassword(plainPassword,user.password);
+
+            if(!passwordMatch){
+                console.log("password match");
+                throw {error:'password doesnt match'}
+            }
+
+            const newJWT = this.createtoken({email:user.email,id:user.id});
+            return newJWT;
+        } catch (error) {
+            console.log("something went wrong in service layer for sign in process");
+            throw error; 
+        }
+    }
+
     createtoken(user){
         try {
             const result = jwt.sign(user,JWT_key,{expiresIn:'1h'});
