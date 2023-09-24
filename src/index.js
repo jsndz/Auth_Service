@@ -3,6 +3,7 @@ const bodyParser = require('body-parser')
 const {PORT,DB_SYNC} = require('./config/serverConfig');
 const ApiRoutes = require('./routes/index');
 const db = require('./models/index')
+const {User,Role} = require('./models/index')
 
 // const UserRepository = require('./repository/user-repository');
 // const UserService = require('./service/user-service');
@@ -17,6 +18,9 @@ const prepareAndstartServer = () => {
         if(process.env.DB_SYNC){
             db.sequelize.sync({alter:true});
         }
+        // const u1 = await User.findByPk(2);
+        // const r1= await Role.findByPk(3);
+        // u1.addRole(r1);
     })
 }
 
