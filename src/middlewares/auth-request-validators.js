@@ -2,9 +2,9 @@ const validateAuthUser = (req,res,next) => {
     if(!req.body.email || !req.body.password){
         return res.status(400).json({
             data: {},
-            error:{error},
+            err:'email or password is missing',
             sucess:false,
-            message:"missing password or email"
+            message:'something went wrong'
         })
     }
     next();
