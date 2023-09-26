@@ -18,11 +18,12 @@ const create = async (req,res) => {
         })
     } catch (error) {
         // console.log(error);
-        return res.status(error.StatusCode).json({
+        return res.status(error.statusCode).json({
             data: {},
             err: error.explanation,
             sucess:false,
-            message:error.message
+            message:error.message,
+            
         })
     }
 }
@@ -51,21 +52,30 @@ const isAuthenticated = async (req,res) => {
 const signin = async (req,res) => {
     try {
         const response = await userService.signin(req.body.email,req.body.password);
-        return res.status(201).json({
+        return res.status(200).json({
             data: response,
             error:{},
             sucess:true,
             message:" sign in successful"
         })
     } catch (error) {
-        console.log(error);
+        // console.log(error);
+        // console.log(error.statusCode)
+        // return res.status(error.statusCode).json({
+        //     data: {},
+        //     err: error.explanation,
+        //     sucess:false,
+        //     message:error.message
+        // })
         return res.status(500).json({
             data: {},
-            error:error,
+            error:{error},
             sucess:false,
-            message:"sign in unsuccessful"
+            message:"signin is unsuccessful"
         })
     }
+   
+
 }
 
 const isAdmin = async (req,res) => {

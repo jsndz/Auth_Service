@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const AppErrors = require('../utils/error-handler');
 
+
 class UserService {
     constructor(){
         this.userRepository = new UserRepository();
@@ -18,7 +19,13 @@ class UserService {
                 throw error;
            }
             console.log("something went wrong in service layer");
-            throw error; 
+            // throw new AppErrors(
+            //     'serverError',
+            //     'something went wrong in service ',
+            //     'logical issues found ',
+            //     500
+            // ); 
+            throw error;
         }
     }
 
@@ -35,9 +42,12 @@ class UserService {
             const newJWT = this.createtoken({email:user.email,id:user.id});
             return newJWT;
         } catch (error) {
+            // if(error.name == 'AttributeNotFound'){
+            //     throw error;
+            // }
             console.log("something went wrong in service layer for sign in process");
             throw error; 
-        }
+        } 
     }
 
     async isAuthenticated(token){
